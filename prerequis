@@ -1,0 +1,26 @@
+yum install realmd sssd oddjob oddjob-mkhomedir adcli samba-common samba-common-tools krb5-workstation authselect-compat
+yum install perl 
+yum install net-tools
+
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+yum install fail2ban
+
+
+/etc/fail2ban/jail.local
+[DEFAULT]
+ignoreip = 127.0.0.1
+findtime = 600s
+bantime = 600s
+maxretry = 3
+
+
+[sshd]
+enabled = true
+port = 22
+logpath = /var/log/auth.log
+maxretry = 3
+action   = iptables[name=SSH, port=ssh, protocol=tcp]
+           sendmail-whois[name=SSH, dest=infrainfo@noz.fr, sender=fail2ban@noz.com]
+
+systemctl enable fail2ban
+systemctl start fail2ban
