@@ -20,7 +20,7 @@ else
 fi
 
 #Ajout de l'athentification AD 
-realm join noz.local -U $admin
+realm join DOMAINE -U $admin
 sleep 10
 rm -f /etc/sssd/sssd.conf
 mv /root/sssd.conf /etc/sssd/sssd.conf
